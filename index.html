@@ -18,22 +18,23 @@
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="icon" type="image/png" href="icon-192.png">
     
-    <!-- Preconnect for performance -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* Optimized Mobile-First CSS */
+        /* Base styles */
         :root {
-            --bg-primary: #1a1a2e;
-            --bg-card: rgba(25, 25, 40, 0.98);
+            --bg-primary: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            --bg-card: rgba(25, 25, 40, 0.95);
             --text-primary: #e8e8f0;
             --text-secondary: #b8b8d1;
             --accent-gold: #d4af37;
             --accent-purple: #8b7cf8;
             --accent-teal: #4fd1c7;
-            --border-mystical: rgba(212, 175, 55, 0.2);
+            --border-mystical: rgba(212, 175, 55, 0.3);
+            --glow-soft: 0 0 20px rgba(212, 175, 55, 0.1);
             --safe-area-inset-top: env(safe-area-inset-top);
             --safe-area-inset-bottom: env(safe-area-inset-bottom);
         }
@@ -43,93 +44,128 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         body {
             background: var(--bg-primary);
             color: var(--text-primary);
             font-family: 'Crimson Text', Georgia, serif;
-            line-height: 1.5;
+            line-height: 1.4;
             min-height: 100vh;
             min-height: -webkit-fill-available;
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            padding-top: var(--safe-area-inset-top);
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Simplified container for mobile */
+        /* Subtle animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, rgba(212, 175, 55, 0.1), transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(139, 124, 248, 0.1), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(79, 209, 199, 0.1), transparent);
+            background-size: 100px 80px;
+            animation: drift 20s infinite linear;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        /* Container */
         .container {
-            height: 100vh;
-            height: -webkit-fill-available;
+            position: relative;
+            z-index: 1;
+            max-width: 100vw;
+            min-height: 100vh;
+            padding: 8px;
+            padding-top: calc(8px + var(--safe-area-inset-top));
+            padding-bottom: calc(80px + var(--safe-area-inset-bottom));
             display: flex;
             flex-direction: column;
-            padding: 0;
-            position: relative;
         }
 
-        /* Compact header */
+        /* Header */
         .header {
-            background: var(--bg-card);
-            padding: 12px 16px 10px;
+            text-align: center;
+            padding: 10px 0 8px;
             border-bottom: 1px solid var(--border-mystical);
-            position: relative;
-            z-index: 10;
+            margin-bottom: 10px;
         }
 
         .header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 1.3rem;
             font-weight: 500;
             color: var(--accent-gold);
-            text-align: center;
-            letter-spacing: 1px;
+            text-shadow: var(--glow-soft);
+            margin-bottom: 2px;
+            letter-spacing: 2px;
         }
 
-        /* Main content area with swipe support */
-        .swipe-container {
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Passage Card */
+        .passage-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-mystical);
+            box-shadow: var(--glow-soft);
+            backdrop-filter: blur(10px);
             flex: 1;
-            position: relative;
-            overflow: hidden;
-            touch-action: pan-y;
-        }
-
-        .passages-wrapper {
             display: flex;
-            height: 100%;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
+            flex-direction: column;
+            min-height: 0;
         }
 
         .passage {
-            width: 100%;
-            flex-shrink: 0;
-            padding: 16px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            display: flex;
+            display: none;
+            animation: fadeIn 0.6s ease-in-out;
+            height: 100%;
             flex-direction: column;
         }
 
-        .passage h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-purple);
-            font-size: 1.1rem;
-            margin-bottom: 16px;
-            text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-mystical);
+        .passage.active {
+            display: flex;
         }
 
-        /* Optimized image container */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .passage h2 {
+            font-family: 'Cinzel', Georgia, serif;
+            color: var(--accent-purple);
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: var(--glow-soft);
+            border-bottom: 1px solid var(--border-mystical);
+            padding-bottom: 8px;
+        }
+
         .passage-image {
             width: 100%;
-            height: 160px;
-            border-radius: 12px;
-            margin-bottom: 16px;
+            height: 140px;
+            border-radius: 10px;
+            margin: 8px 0;
+            border: 1px solid var(--border-mystical);
+            box-shadow: var(--glow-soft);
             overflow: hidden;
             position: relative;
             background: linear-gradient(135deg, #2d4059, #415a77);
@@ -139,269 +175,300 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+        }
+
+        .passage-image::after {
+            content: attr(data-desc);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 10px;
+            font-size: 0.8rem;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .passage-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-purple) transparent;
+        }
+
+        .passage-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .passage-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .passage-content::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 3px;
         }
 
         .passage-text {
             color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 16px;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            line-height: 1.5;
             text-align: center;
             font-style: italic;
-            line-height: 1.6;
+            font-weight: 400;
         }
 
         .daily-application {
-            background: rgba(79, 209, 199, 0.08);
+            background: rgba(79, 209, 199, 0.1);
             border-left: 3px solid var(--accent-teal);
-            padding: 12px;
+            border-right: 3px solid var(--accent-teal);
+            padding: 10px;
+            margin-top: 10px;
             border-radius: 8px;
-            margin-top: auto;
+            font-size: 0.85rem;
+            text-align: center;
         }
 
         .daily-application h3 {
-            font-family: 'Cinzel', serif;
+            font-family: 'Cinzel', Georgia, serif;
             color: var(--accent-teal);
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .daily-application p {
             font-size: 0.9rem;
-            line-height: 1.5;
+            font-weight: 500;
+            margin-bottom: 5px;
+            text-shadow: var(--glow-soft);
         }
 
-        /* Touch-optimized navigation */
+        /* Navigation */
         .navigation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: var(--bg-card);
             border-top: 1px solid var(--border-mystical);
-            padding: 12px 16px;
-            padding-bottom: calc(12px + var(--safe-area-inset-bottom));
+            padding: 8px;
+            padding-bottom: calc(8px + var(--safe-area-inset-bottom));
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+        
+        .nav-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .nav-button {
-            background: rgba(139, 124, 248, 0.15);
+            background: rgba(139, 124, 248, 0.2);
             border: 1px solid var(--accent-purple);
             color: var(--text-primary);
-            padding: 12px 20px;
-            border-radius: 24px;
-            font-size: 0.9rem;
-            font-family: inherit;
-            min-width: 48px;
-            min-height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.1s;
+            padding: 8px 16px;
+            border-radius: 25px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.9rem;
+            box-shadow: var(--glow-soft);
         }
 
-        .nav-button:active {
-            transform: scale(0.95);
-            background: rgba(139, 124, 248, 0.25);
+        .nav-button:hover:not(:disabled) {
+            background: rgba(139, 124, 248, 0.3);
+            transform: scale(1.05);
         }
 
         .nav-button:disabled {
             opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .nav-button.special-nav {
+            background: rgba(79, 209, 199, 0.2);
+            border-color: var(--accent-teal);
+            font-size: 0.85rem;
+        }
+        
+        .nav-button.special-nav:hover {
+            background: rgba(79, 209, 199, 0.3);
+        }
+
+        .passage-dropdown {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-purple);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 25px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: var(--glow-soft);
+        }
+        
+        .passage-dropdown:focus {
+            outline: none;
+            box-shadow: 0 0 30px rgba(139, 124, 248, 0.2);
+        }
+        
+        .passage-dropdown option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 5px;
         }
 
         .passage-counter {
             color: var(--accent-gold);
             font-size: 0.9rem;
-            font-weight: 500;
+            text-shadow: var(--glow-soft);
             white-space: nowrap;
-        }
-
-        /* Swipe indicators */
-        .swipe-indicator {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background: rgba(139, 124, 248, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .swipe-indicator.left {
-            left: 10px;
-        }
-
-        .swipe-indicator.right {
-            right: 10px;
-        }
-
-        .swipe-indicator.visible {
-            opacity: 1;
         }
 
         /* Install prompt */
         .install-prompt {
+            display: none;
             position: fixed;
-            bottom: calc(80px + var(--safe-area-inset-bottom));
-            left: 16px;
-            right: 16px;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
             background: var(--bg-card);
             border: 1px solid var(--accent-gold);
-            border-radius: 12px;
-            padding: 16px;
-            transform: translateY(200%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 100;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 1000;
         }
 
         .install-prompt.show {
-            transform: translateY(0);
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .install-prompt h3 {
             color: var(--accent-gold);
-            font-size: 1rem;
             margin-bottom: 8px;
         }
 
         .install-prompt p {
-            font-size: 0.85rem;
-            margin-bottom: 12px;
             color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
         }
 
         .install-buttons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
 
         .install-btn {
             flex: 1;
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 20px;
             border: none;
-            font-family: inherit;
             font-size: 0.9rem;
             cursor: pointer;
         }
 
         .install-btn.primary {
             background: var(--accent-gold);
-            color: var(--bg-primary);
+            color: #1a1a2e;
         }
 
         .install-btn.secondary {
             background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-mystical);
-        }
-
-        /* Loading state */
-        .loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-        }
-
-        /* Hide scrollbar but keep functionality */
-        .passage::-webkit-scrollbar {
-            width: 0;
-            height: 0;
-        }
-
-        /* Special nav buttons */
-        .nav-row {
-            display: flex;
-            gap: 8px;
-        }
-
-        .nav-button.icon-btn {
-            padding: 12px;
-            min-width: 48px;
-        }
-
-        /* Dropdown for passage selection */
-        .passage-dropdown {
-            background: var(--bg-card);
             border: 1px solid var(--accent-purple);
             color: var(--text-primary);
-            padding: 10px;
-            border-radius: 20px;
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            margin: 0 8px;
-            max-width: 150px;
-        }
-        
-        .passage-dropdown:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(139, 124, 248, 0.3);
-        }
-        
-        .passage-dropdown option {
-            background: var(--bg-card);
-            color: var(--text-primary);
         }
 
-        /* Quick access buttons */
-        .quick-access {
-            display: flex;
-            gap: 8px;
-            margin: 0 8px;
-            align-items: center;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .quick-btn {
-            background: rgba(79, 209, 199, 0.15);
-            border: 1px solid var(--accent-teal);
-            color: var(--text-primary);
-            padding: 10px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .quick-btn:active {
-            transform: scale(0.95);
-            background: rgba(79, 209, 199, 0.25);
-        }
-
-        /* Reduce motion for accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                transition: none !important;
-                animation: none !important;
+        /* Responsive for small screens */
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+                padding-top: calc(5px + var(--safe-area-inset-top));
             }
-        }
-        
-        /* Landscape adjustments */
-        @media (orientation: landscape) and (max-height: 500px) {
+            
             .header {
-                padding: 8px 16px 6px;
+                padding: 8px 0 5px;
+                margin-bottom: 8px;
             }
             
             .header h1 {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
+            .header p {
+                font-size: 0.75rem;
+            }
+            
+            .passage-card {
+                padding: 10px;
+                margin-bottom: 8px;
+            }
+
+            .passage h2 {
+                font-size: 0.95rem;
+                margin-bottom: 8px;
+            }
+
+            .passage-text {
+                font-size: 0.82rem;
+                margin-bottom: 8px;
+            }
+
+            .daily-application {
+                font-size: 0.78rem;
+                padding: 8px;
+                margin-top: 8px;
+            }
+            
+            .daily-application h3 {
+                font-size: 0.85rem;
+                margin-bottom: 3px;
+            }
+
+            .nav-button {
+                padding: 6px 10px;
+                font-size: 0.78rem;
+            }
+            
+            .nav-button.special-nav {
+                font-size: 0.72rem;
+            }
+            
+            .passage-dropdown {
+                min-width: 140px;
+                font-size: 0.78rem;
+                padding: 6px 8px;
+            }
+
             .passage-image {
                 height: 120px;
+                margin: 6px 0;
+            }
+            
+            .passage-counter {
+                font-size: 0.78rem;
+            }
+            
+            .nav-row {
+                gap: 4px;
             }
             
             .navigation {
-                padding: 8px 16px;
+                padding: 6px;
+                gap: 6px;
             }
         }
     </style>
@@ -410,33 +477,32 @@
     <div class="container">
         <header class="header">
             <h1>TAO TE CHING</h1>
+            <p>✨ Let the Way guide your journey ✨</p>
         </header>
 
-        <div class="swipe-container" id="swipeContainer">
-            <div class="swipe-indicator left">←</div>
-            <div class="swipe-indicator right">→</div>
-            <div class="passages-wrapper" id="passagesWrapper">
-                <!-- Passages will be dynamically inserted here -->
-            </div>
-        </div>
+        <main class="passage-card">
+            <div id="passage-container"></div>
+        </main>
 
         <nav class="navigation">
-            <button class="nav-button icon-btn" id="prevBtn" aria-label="Previous">←</button>
-            <div class="quick-access">
-                <button class="quick-btn" id="todayBtn">Today</button>
-                <select class="passage-dropdown" id="passageDropdown" aria-label="Select passage">
-                    <!-- Options will be populated by JavaScript -->
+            <div class="nav-row">
+                <button class="nav-button" id="prevBtn" onclick="changePassage(-1)">← Previous</button>
+                <select class="passage-dropdown" id="passageDropdown" onchange="showPassage(parseInt(this.value))">
+                    <!-- Options will be added by JavaScript -->
                 </select>
-                <button class="quick-btn" id="randomBtn">Random</button>
+                <button class="nav-button" id="nextBtn" onclick="changePassage(1)">Next →</button>
             </div>
-            <button class="nav-button icon-btn" id="nextBtn" aria-label="Next">→</button>
-            <div class="passage-counter" id="passageCounter">1 / 81</div>
+            <div class="nav-row">
+                <button class="nav-button special-nav" onclick="goToDailyPassage()">Today's Passage</button>
+                <span class="passage-counter" id="passageCounter">1 / 81</span>
+                <button class="nav-button special-nav" onclick="goToRandomPassage()">Random</button>
+            </div>
         </nav>
 
         <!-- Install Prompt -->
         <div class="install-prompt" id="installPrompt">
             <h3>Install Tao Daily</h3>
-            <p>Add to your home screen for offline access and daily wisdom</p>
+            <p>Add to your home screen for offline access</p>
             <div class="install-buttons">
                 <button class="install-btn primary" id="installBtn">Install</button>
                 <button class="install-btn secondary" id="dismissBtn">Not Now</button>
@@ -446,341 +512,226 @@
 
     <script src="passages-data.js"></script>
     <script>
-        // Passages loaded from passages-data.js
-        /* Example structure:
-        const passages = [
-            {
-                number: 1,
-                title: "The Way that can be spoken",
-                text: "The Way that can be spoken is not the eternal Way. The name that can be named is not the eternal name. The nameless is the beginning of heaven and earth. The named is the mother of ten thousand things.",
-                application: "Today, embrace the mystery of life without needing to label everything. Practice sitting quietly for five minutes, observing thoughts without naming them.",
-                image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=300&q=70"
-            },
-            {
-                number: 2,
-                title: "When people see some things as beautiful",
-                text: "When people see some things as beautiful, other things become ugly. Being and non-being create each other. Difficult and easy support each other.",
-                application: "Notice how you create opposites in your mind today. When you judge something as 'bad,' pause and consider how this judgment creates suffering.",
-                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=70"
-            },
-            {
-                number: 3,
-                title: "Not exalting the gifted",
-                text: "Not exalting the gifted prevents quarreling. Not collecting treasures prevents stealing. The wise therefore rule by emptying hearts and filling bellies.",
-                application: "Simplify one area of your life today. Clean out a drawer, delete unnecessary apps, or unsubscribe from emails that create desire.",
-                image: "https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=300&q=70"
-            },
-            {
-                number: 4,
-                title: "The Way is empty",
-                text: "The Way is empty but inexhaustible, bottomless, the ancestor of all things. It blunts sharpness, unties knots, softens glare.",
-                application: "Create space in your day for emptiness. Between tasks, pause for thirty seconds of nothing. Notice how emptiness refreshes.",
-                image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=300&q=70"
-            },
-            {
-                number: 5,
-                title: "Heaven and earth are impartial",
-                text: "Heaven and earth are impartial; they see all things as straw dogs. The space between heaven and earth is like a bellows.",
-                application: "Practice impartiality today by treating everyone with equal kindness. Notice your tendency to favor some and dismiss others.",
-                image: "https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=300&q=70"
-            },
-            {
-                number: 6,
-                title: "The valley spirit never dies",
-                text: "The valley spirit never dies; it is the woman, primal mother. Her gateway is the root of heaven and earth.",
-                application: "Connect with receptivity today. Listen more than you speak. Accept help when offered. Notice how receiving can be powerful.",
-                image: "https://images.unsplash.com/photo-1511497584788-876760111969?w=300&q=70"
-            },
-            {
-                number: 7,
-                title: "Heaven and earth endure",
-                text: "Heaven and earth endure forever. They are unborn, so ever living. The sage stays behind, thus he is ahead.",
-                application: "Practice putting others first in small ways today. Hold the door, let someone go ahead in line. Notice how this fulfills you.",
-                image: "https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=300&q=70"
-            },
-            {
-                number: 8,
-                title: "The highest good is like water",
-                text: "The highest good is like water. Water gives life to all things and does not compete. It flows in places people reject.",
-                application: "Be like water today. When you encounter resistance, flow around it rather than pushing through. Adapt to circumstances.",
-                image: "https://images.unsplash.com/photo-1455577380025-4321f1e1dca7?w=300&q=70"
-            },
-            {
-                number: 9,
-                title: "Better to stop short",
-                text: "Better to stop short than fill to the brim. Oversharpen the blade, and the edge will soon blunt. Retire when the work is done.",
-                application: "Practice moderation today. Stop eating before completely full. End conversations while still enjoyable.",
-                image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&q=70"
-            },
-            {
-                number: 10,
-                title: "Can you coax your mind",
-                text: "Can you coax your mind from wandering and keep to the original oneness? Can you let your body become supple as a newborn child's?",
-                application: "Return to simplicity today. Approach one task with beginner's curiosity. Let go of control and see what unfolds.",
-                image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300&q=70"
-            },
-            // Adding remaining passages with same structure...
-            // (I'll include just key ones for brevity, but all 81 would be included)
-            {
-                number: 81,
-                title: "True words aren't eloquent",
-                text: "True words aren't eloquent; eloquent words aren't true. The Master has no possessions. The more she gives, the wealthier she is.",
-                application: "Speak simply and truly today. Give without counting cost. End where you began - with simple truth and generous action.",
-                image: "https://images.unsplash.com/photo-1510797215324-95aa89f43c33?w=300&q=70"
-            }
-        ];
-        */
-
-        // All 81 passages are loaded from passages-data.js
-
         // App state
         let currentPassage = 1;
-        let touchStartX = 0;
-        let touchEndX = 0;
-        let isSwiping = false;
         let deferredPrompt = null;
 
-        // Initialize app
-        function init() {
-            loadPassages();
-            setupDropdown();
-            setupEventListeners();
-            restoreState();
-            registerServiceWorker();
-            setupInstallPrompt();
-            
-            // Check if running as installed PWA
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                console.log('Running as installed PWA');
-            }
-        }
-
-        // Load passages into DOM
-        function loadPassages() {
-            const wrapper = document.getElementById('passagesWrapper');
-            wrapper.innerHTML = passages.map(p => `
-                <div class="passage" data-passage="${p.number}">
-                    <h2>Passage ${p.number}: ${p.title}</h2>
-                    <div class="passage-image">
-                        <img src="${p.image}" alt="Passage ${p.number}" loading="lazy">
+        function createPassageHTML(passage) {
+            return `
+                <div class="passage ${passage.number === currentPassage ? 'active' : ''}" id="passage-${passage.number}">
+                    <h2>Passage ${passage.number}: ${passage.title}</h2>
+                    <div class="passage-image" data-desc="${passage.imageDesc || passage.title}">
+                        <img src="${passage.image}" 
+                             alt="${passage.title}" 
+                             loading="lazy"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=400';">
                     </div>
-                    <p class="passage-text">${p.text}</p>
-                    <div class="daily-application">
-                        <h3>Daily Application</h3>
-                        <p>${p.application}</p>
+                    <div class="passage-content">
+                        <p class="passage-text">${passage.text}</p>
+                        <div class="daily-application">
+                            <h3>Daily Application</h3>
+                            <p>${passage.application}</p>
+                        </div>
                     </div>
                 </div>
-            `).join('');
+            `;
         }
 
-        // Show specific passage
+        function initializeApp() {
+            const container = document.getElementById('passage-container');
+            container.innerHTML = passages.map(createPassageHTML).join('');
+            
+            // Populate dropdown
+            const dropdown = document.getElementById('passageDropdown');
+            passages.forEach(passage => {
+                const option = document.createElement('option');
+                option.value = passage.number;
+                option.textContent = `${passage.number}. ${passage.title.substring(0, 30)}...`;
+                dropdown.appendChild(option);
+            });
+            
+            // Determine initial passage
+            let initialPassage = 1;
+            
+            // Check URL hash first
+            if (window.location.hash) {
+                const match = window.location.hash.match(/passage-(\d+)/);
+                if (match) {
+                    const num = parseInt(match[1]);
+                    if (num >= 1 && num <= passages.length) {
+                        initialPassage = num;
+                    }
+                }
+            } 
+            // Check URL params for action
+            else {
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('action') === 'today') {
+                    initialPassage = getTodayPassage();
+                } else if (params.get('action') === 'random') {
+                    initialPassage = Math.floor(Math.random() * passages.length) + 1;
+                }
+            }
+            // Otherwise check localStorage
+            else {
+                const saved = localStorage.getItem('lastViewedPassage');
+                if (saved) {
+                    const num = parseInt(saved);
+                    if (num >= 1 && num <= passages.length) {
+                        initialPassage = num;
+                    }
+                }
+            }
+            
+            // Show initial passage
+            showPassage(initialPassage);
+            
+            // Register service worker
+            registerServiceWorker();
+            
+            // Setup install prompt
+            setupInstallPrompt();
+        }
+
         function showPassage(num) {
-            if (num < 1) num = 1;
-            if (num > 81) num = 81;
-            
             currentPassage = num;
-            const wrapper = document.getElementById('passagesWrapper');
-            const offset = -(num - 1) * 100;
-            wrapper.style.transform = `translateX(${offset}%)`;
+            document.querySelectorAll('.passage').forEach(p => p.classList.remove('active'));
+            document.getElementById(`passage-${num}`).classList.add('active');
+            document.getElementById('passageCounter').textContent = `${num} / ${passages.length}`;
+            updateNavigation();
             
-            // Update UI
-            document.getElementById('passageCounter').textContent = `${num} / 81`;
-            document.getElementById('prevBtn').disabled = num === 1;
-            document.getElementById('nextBtn').disabled = num === 81;
+            // Update URL hash
+            window.location.hash = `passage-${num}`;
             
-            // Update dropdown
+            // Save to localStorage
+            localStorage.setItem('lastViewedPassage', num);
+            
+            // Update dropdown if it exists
             const dropdown = document.getElementById('passageDropdown');
             if (dropdown) dropdown.value = num;
-            
-            // Save state
-            localStorage.setItem('lastPassage', num);
-            
-            // Update URL without reload
-            history.replaceState({passage: num}, '', `#passage-${num}`);
-            
-            // Haptic feedback if available
-            if ('vibrate' in navigator) {
-                navigator.vibrate(10);
-            }
         }
 
-        // Setup event listeners
-        function setupEventListeners() {
-            // Button navigation
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                showPassage(currentPassage - 1);
-            });
-            
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                showPassage(currentPassage + 1);
-            });
-            
-            document.getElementById('todayBtn').addEventListener('click', () => {
-                const today = new Date();
-                const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-                showPassage((dayOfYear % 81) + 1);
-            });
-            
-            document.getElementById('randomBtn').addEventListener('click', () => {
-                showPassage(Math.floor(Math.random() * 81) + 1);
-            });
-            
-            // Dropdown navigation
-            document.getElementById('passageDropdown').addEventListener('change', (e) => {
-                showPassage(parseInt(e.target.value));
-            });
-            
-            // Touch/swipe handling
-            const container = document.getElementById('swipeContainer');
-            
-            container.addEventListener('touchstart', handleTouchStart, {passive: true});
-            container.addEventListener('touchmove', handleTouchMove, {passive: true});
-            container.addEventListener('touchend', handleTouchEnd);
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft' && currentPassage > 1) {
-                    showPassage(currentPassage - 1);
-                } else if (e.key === 'ArrowRight' && currentPassage < 81) {
-                    showPassage(currentPassage + 1);
-                }
-            });
+        function changePassage(direction) {
+            let newPassage = currentPassage + direction;
+            if (newPassage < 1) newPassage = 1;
+            if (newPassage > passages.length) newPassage = passages.length;
+            showPassage(newPassage);
         }
 
-        // Touch handlers for swipe
-        function handleTouchStart(e) {
-            touchStartX = e.touches[0].clientX;
-            isSwiping = true;
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentPassage === 1;
+            document.getElementById('nextBtn').disabled = currentPassage === passages.length;
+        }
+        
+        function goToRandomPassage() {
+            const randomNum = Math.floor(Math.random() * passages.length) + 1;
+            showPassage(randomNum);
+        }
+        
+        function goToDailyPassage() {
+            showPassage(getTodayPassage());
+        }
+        
+        function getTodayPassage() {
+            const today = new Date();
+            const start = new Date(today.getFullYear(), 0, 0);
+            const diff = today - start;
+            const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+            return (dayOfYear % passages.length) + 1;
         }
 
-        function handleTouchMove(e) {
-            if (!isSwiping) return;
-            
-            touchEndX = e.touches[0].clientX;
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentPassage > 1) changePassage(-1);
+            if (e.key === 'ArrowRight' && currentPassage < passages.length) changePassage(1);
+            if (e.key === 'Home') showPassage(1);
+            if (e.key === 'End') showPassage(passages.length);
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
             const diff = touchStartX - touchEndX;
             
-            // Show swipe indicators
-            if (Math.abs(diff) > 30) {
-                if (diff > 0 && currentPassage < 81) {
-                    document.querySelector('.swipe-indicator.right').classList.add('visible');
-                } else if (diff < 0 && currentPassage > 1) {
-                    document.querySelector('.swipe-indicator.left').classList.add('visible');
-                }
-            }
-        }
-
-        function handleTouchEnd(e) {
-            if (!isSwiping) return;
-            
-            const diff = touchStartX - touchEndX;
-            const threshold = 50; // Minimum swipe distance
-            
-            // Hide indicators
-            document.querySelectorAll('.swipe-indicator').forEach(ind => {
-                ind.classList.remove('visible');
-            });
-            
-            if (Math.abs(diff) > threshold) {
-                if (diff > 0 && currentPassage < 81) {
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && currentPassage < passages.length) {
                     // Swipe left - next passage
-                    showPassage(currentPassage + 1);
+                    changePassage(1);
                 } else if (diff < 0 && currentPassage > 1) {
                     // Swipe right - previous passage
-                    showPassage(currentPassage - 1);
+                    changePassage(-1);
                 }
-            }
-            
-            isSwiping = false;
-        }
-
-        // Restore last viewed passage
-        function restoreState() {
-            // Check URL hash first
-            const hash = window.location.hash;
-            if (hash) {
-                const match = hash.match(/passage-(\d+)/);
-                if (match) {
-                    showPassage(parseInt(match[1]));
-                    return;
-                }
-            }
-            
-            // Otherwise check localStorage
-            const saved = localStorage.getItem('lastPassage');
-            if (saved) {
-                showPassage(parseInt(saved));
-            } else {
-                showPassage(1);
             }
         }
 
-        // Register service worker
+        // Service Worker Registration
         async function registerServiceWorker() {
             if ('serviceWorker' in navigator) {
                 try {
                     const registration = await navigator.serviceWorker.register('service-worker.js');
-                    console.log('ServiceWorker registered:', registration);
+                    console.log('Service Worker registered:', registration);
                 } catch (error) {
-                    console.log('ServiceWorker registration failed:', error);
+                    console.log('Service Worker registration failed:', error);
                 }
             }
         }
 
-        // Setup install prompt
+        // Install prompt
         function setupInstallPrompt() {
-            // Capture install prompt event
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
                 
-                // Show install prompt after 30 seconds or 3 passages viewed
+                // Show install prompt after 30 seconds
                 setTimeout(() => {
-                    if (deferredPrompt && !localStorage.getItem('installDismissed')) {
-                        showInstallPrompt();
+                    if (deferredPrompt) {
+                        document.getElementById('installPrompt').classList.add('show');
                     }
                 }, 30000);
             });
-            
-            // Install button
+
             document.getElementById('installBtn').addEventListener('click', async () => {
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
-                    console.log('Install prompt outcome:', outcome);
+                    console.log(`User response: ${outcome}`);
                     deferredPrompt = null;
-                    hideInstallPrompt();
+                    document.getElementById('installPrompt').classList.remove('show');
                 }
             });
-            
-            // Dismiss button
+
             document.getElementById('dismissBtn').addEventListener('click', () => {
-                localStorage.setItem('installDismissed', 'true');
-                hideInstallPrompt();
+                document.getElementById('installPrompt').classList.remove('show');
             });
         }
 
-        function showInstallPrompt() {
-            document.getElementById('installPrompt').classList.add('show');
-        }
-
-        function hideInstallPrompt() {
-            document.getElementById('installPrompt').classList.remove('show');
-        }
-
-        // Setup dropdown with all passages
-        function setupDropdown() {
-            const dropdown = document.getElementById('passageDropdown');
-            dropdown.innerHTML = passages.map(p => 
-                `<option value="${p.number}">${p.number}. ${p.title.substring(0, 20)}...</option>`
-            ).join('');
-        }
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initializeApp);
         
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
+        // Handle browser back/forward navigation
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash) {
+                const match = window.location.hash.match(/passage-(\d+)/);
+                if (match) {
+                    const num = parseInt(match[1]);
+                    if (num >= 1 && num <= passages.length && num !== currentPassage) {
+                        showPassage(num);
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
