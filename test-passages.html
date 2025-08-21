@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Passages</title>
+</head>
+<body>
+    <h1>Testing Passages Data</h1>
+    <div id="output"></div>
+    
+    <script src="passages-data.js"></script>
+    <script>
+        document.getElementById('output').innerHTML = `
+            <p>Total passages loaded: ${passages.length}</p>
+            <p>First passage title: ${passages[0].title}</p>
+            <p>First passage has imageDesc: ${passages[0].imageDesc ? 'YES' : 'NO'}</p>
+            <p>Last passage number: ${passages[passages.length-1].number}</p>
+            <p>Last passage title: ${passages[passages.length-1].title}</p>
+            <p>All passages have imageDesc: ${passages.every(p => p.imageDesc) ? 'YES' : 'NO'}</p>
+        `;
+        
+        // Log any passages missing imageDesc
+        passages.forEach((p, i) => {
+            if (!p.imageDesc) {
+                console.log(`Passage ${p.number} missing imageDesc`);
+            }
+        });
+    </script>
+</body>
+</html>

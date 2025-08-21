@@ -564,7 +564,7 @@
                 }
             } 
             // Check URL params for action
-            else {
+            else if (window.location.search) {
                 const params = new URLSearchParams(window.location.search);
                 if (params.get('action') === 'today') {
                     initialPassage = getTodayPassage();
