@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tao PWA Locally</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #e8e8f0;
+        }
+        h1 {
+            color: #d4af37;
+        }
+        .status {
+            background: rgba(25, 25, 40, 0.98);
+            border-left: 3px solid #4fd1c7;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .success {
+            border-color: #4fd1c7;
+            background: rgba(79, 209, 199, 0.1);
+        }
+        .error {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+        .warning {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+        button {
+            background: #d4af37;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+        }
+        button:hover {
+            background: #e4bf47;
+        }
+        a {
+            color: #8b7cf8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: rgba(139, 124, 248, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 8px 0;
+        }
+        .checklist li:before {
+            content: '❌ ';
+        }
+        .checklist li.checked:before {
+            content: '✅ ';
+        }
+    </style>
+</head>
+<body>
+    <h1>🧘 Tao PWA Local Test</h1>
+    
+    <div class="status">
+        <h2>Quick Test</h2>
+        <p>This page helps you test the PWA locally before deployment.</p>
+        <button onclick="openApp()">Open App</button>
+        <button onclick="testServiceWorker()">Test Service Worker</button>
+        <button onclick="testOffline()">Test Offline Mode</button>
+    </div>
+
+    <div class="status">
+        <h2>✅ Checklist</h2>
+        <ul class="checklist" id="checklist">
+            <li id="check-files">All files present</li>
+            <li id="check-manifest">Manifest valid</li>
+            <li id="check-sw">Service Worker ready</li>
+            <li id="check-icons">Icons generated</li>
+            <li id="check-https">HTTPS or localhost</li>
+        </ul>
+    </div>
+
+    <div class="status" id="results">
+        <h2>Test Results</h2>
+        <p>Click the test buttons above to check functionality.</p>
+    </div>
+
+    <div class="status warning">
+        <h2>⚠️ Local Testing Notes</h2>
+        <ul>
+            <li>PWA features require HTTPS or localhost</li>
+            <li>Service Workers don't work with file:// protocol</li>
+            <li>Use a local server for full testing</li>
+        </ul>
+    </div>
+
+    <div class="status">
+        <h2>🚀 Quick Local Server</h2>
+        <p>Choose one of these methods to test locally:</p>
+        
+        <h3>Python (if installed):</h3>
+        <code>python -m http.server 8000</code>
+        <p>Then open: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
+        
+        <h3>Node.js (if installed):</h3>
+        <code>npx http-server -p 8000</code>
+        <p>Then open: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
+        
+        <h3>VS Code:</h3>
+        <p>Use "Live Server" extension</p>
+    </div>
+
+    <div class="status">
+        <h2>📱 Mobile Testing</h2>
+        <ol>
+            <li>Start local server (see above)</li>
+            <li>Find your computer's IP address:
+                <ul>
+                    <li>Windows: <code>ipconfig</code></li>
+                    <li>Mac/Linux: <code>ifconfig</code></li>
+                </ul>
+            </li>
+            <li>On phone browser: <code>http://[YOUR-IP]:8000</code></li>
+            <li>Example: <code>http://192.168.1.100:8000</code></li>
+        </ol>
+    </div>
+
+    <script>
+        // Check for required files
+        async function checkFiles() {
+            const files = [
+                'index.html',
+                'manifest.json',
+                'service-worker.js',
+                'icon-192.png',
+                'icon-512.png'
+            ];
+            
+            let allPresent = true;
+            for (const file of files) {
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    if (!response.ok) {
+                        allPresent = false;
+                        console.warn(`Missing file: ${file}`);
+                    }
+                } catch (error) {
+                    allPresent = false;
+                    console.warn(`Cannot check file: ${file}`);
+                }
+            }
+            
+            const checkFiles = document.getElementById('check-files');
+            if (allPresent) {
+                checkFiles.classList.add('checked');
+            }
+            
+            return allPresent;
+        }
+
+        // Check manifest
+        async function checkManifest() {
+            try {
+                const response = await fetch('manifest.json');
+                const manifest = await response.json();
+                
+                if (manifest.name && manifest.icons && manifest.start_url) {
+                    document.getElementById('check-manifest').classList.add('checked');
+                    return true;
+                }
+            } catch (error) {
+                console.error('Manifest check failed:', error);
+            }
+            return false;
+        }
+
+        // Check service worker
+        function checkServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                document.getElementById('check-sw').classList.add('checked');
+                return true;
+            }
+            return false;
+        }
+
+        // Check HTTPS
+        function checkHTTPS() {
+            const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            if (isSecure) {
+                document.getElementById('check-https').classList.add('checked');
+            }
+            return isSecure;
+        }
+
+        // Open app
+        function openApp() {
+            window.open('index.html', '_blank');
+        }
+
+        // Test service worker
+        async function testServiceWorker() {
+            const results = document.getElementById('results');
+            
+            if (!('serviceWorker' in navigator)) {
+                results.innerHTML = `
+                    <h2>❌ Service Worker Not Supported</h2>
+                    <p>Your browser doesn't support service workers.</p>
+                `;
+                results.className = 'status error';
+                return;
+            }
+            
+            if (location.protocol === 'file:') {
+                results.innerHTML = `
+                    <h2>⚠️ File Protocol Detected</h2>
+                    <p>Service Workers don't work with file:// URLs.</p>
+                    <p>Please use a local server (see instructions above).</p>
+                `;
+                results.className = 'status warning';
+                return;
+            }
+            
+            try {
+                const registration = await navigator.serviceWorker.register('service-worker.js');
+                results.innerHTML = `
+                    <h2>✅ Service Worker Registered</h2>
+                    <p>Scope: ${registration.scope}</p>
+                    <p>Status: ${registration.active ? 'Active' : 'Installing'}</p>
+                `;
+                results.className = 'status success';
+            } catch (error) {
+                results.innerHTML = `
+                    <h2>❌ Service Worker Failed</h2>
+                    <p>${error.message}</p>
+                `;
+                results.className = 'status error';
+            }
+        }
+
+        // Test offline mode
+        function testOffline() {
+            const results = document.getElementById('results');
+            
+            if (!navigator.onLine) {
+                results.innerHTML = `
+                    <h2>📡 Already Offline</h2>
+                    <p>You're currently offline. Open the app to test offline functionality.</p>
+                `;
+                results.className = 'status warning';
+                return;
+            }
+            
+            results.innerHTML = `
+                <h2>🔄 Offline Test Instructions</h2>
+                <ol>
+                    <li>Open the app in a new tab</li>
+                    <li>Wait for it to fully load</li>
+                    <li>Turn on Airplane Mode or disconnect internet</li>
+                    <li>Refresh the app - it should still work!</li>
+                    <li>Try navigating between passages</li>
+                </ol>
+                <p><strong>Chrome DevTools method:</strong></p>
+                <ol>
+                    <li>Open app and press F12</li>
+                    <li>Go to Network tab</li>
+                    <li>Check "Offline" checkbox</li>
+                    <li>Refresh page</li>
+                </ol>
+            `;
+            results.className = 'status';
+        }
+
+        // Run checks on load
+        window.addEventListener('load', async () => {
+            checkHTTPS();
+            checkServiceWorker();
+            await checkFiles();
+            await checkManifest();
+            
+            // Check icons
+            const icon192 = new Image();
+            icon192.onload = () => {
+                document.getElementById('check-icons').classList.add('checked');
+            };
+            icon192.src = 'icon-192.png';
+        });
+    </script>
+</body>
+</html>
