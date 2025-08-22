@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tao App Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .icon-container {
+            background: #2a2a3e;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        canvas {
+            border: 1px solid #444;
+            display: block;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+        
+        h2 {
+            margin: 0 0 10px 0;
+            color: #d4af37;
+        }
+        
+        button {
+            background: #d4af37;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #e4bf47;
+        }
+        
+        #instructions {
+            width: 100%;
+            background: #2a2a3e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="instructions">
+        <h2>Tao App Icon Generator</h2>
+        <p>This page generates all required icon sizes for the PWA. Click on each canvas to download the icon.</p>
+        <button onclick="downloadAll()">Download All Icons</button>
+    </div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        
+        function createIcon(size) {
+            const container = document.createElement('div');
+            container.className = 'icon-container';
+            
+            const title = document.createElement('h3');
+            title.textContent = `${size}x${size}px`;
+            container.appendChild(title);
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            canvas.id = `icon-${size}`;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(0.5, '#2d2d4e');
+            gradient.addColorStop(1, '#16213e');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Circle background
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = size * 0.4;
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.15)';
+            ctx.fill();
+            
+            // Yin-Yang symbol (simplified Tao symbol)
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            
+            // Outer circle
+            ctx.beginPath();
+            ctx.arc(0, 0, radius * 0.8, 0, Math.PI * 2);
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = size * 0.02;
+            ctx.stroke();
+            
+            // Main S-curve
+            ctx.beginPath();
+            ctx.arc(0, -radius * 0.4, radius * 0.4, Math.PI / 2, Math.PI * 3 / 2);
+            ctx.arc(0, radius * 0.4, radius * 0.4, Math.PI * 3 / 2, Math.PI / 2);
+            ctx.arc(0, 0, radius * 0.8, Math.PI / 2, Math.PI * 3 / 2, true);
+            ctx.fillStyle = '#d4af37';
+            ctx.fill();
+            
+            // Small circles
+            ctx.beginPath();
+            ctx.arc(0, -radius * 0.4, radius * 0.15, 0, Math.PI * 2);
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(0, radius * 0.4, radius * 0.15, 0, Math.PI * 2);
+            ctx.fillStyle = '#d4af37';
+            ctx.fill();
+            
+            ctx.restore();
+            
+            // Add Chinese character for Tao (道) if size is large enough
+            if (size >= 144) {
+                ctx.font = `${size * 0.15}px serif`;
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.3)';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillText('道', centerX, size - size * 0.05);
+            }
+            
+            container.appendChild(canvas);
+            
+            // Add download functionality
+            canvas.addEventListener('click', () => {
+                downloadIcon(canvas, size);
+            });
+            
+            return container;
+        }
+        
+        function downloadIcon(canvas, size) {
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        function downloadAll() {
+            sizes.forEach(size => {
+                const canvas = document.getElementById(`icon-${size}`);
+                if (canvas) {
+                    setTimeout(() => downloadIcon(canvas, size), size * 10);
+                }
+            });
+        }
+        
+        // Create all icons
+        sizes.forEach(size => {
+            document.body.appendChild(createIcon(size));
+        });
+        
+        // Also create screenshots
+        function createScreenshot() {
+            const container = document.createElement('div');
+            container.className = 'icon-container';
+            
+            const title = document.createElement('h3');
+            title.textContent = 'Screenshot (540x960)';
+            container.appendChild(title);
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = 540;
+            canvas.height = 960;
+            canvas.id = 'screenshot';
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, 540, 960);
+            
+            // Header
+            ctx.fillStyle = 'rgba(25, 25, 40, 0.98)';
+            ctx.fillRect(0, 0, 540, 80);
+            
+            // Title
+            ctx.font = 'bold 28px serif';
+            ctx.fillStyle = '#d4af37';
+            ctx.textAlign = 'center';
+            ctx.fillText('TAO TE CHING', 270, 50);
+            
+            // Content card
+            ctx.fillStyle = 'rgba(25, 25, 40, 0.6)';
+            ctx.fillRect(20, 100, 500, 740);
+            
+            // Passage title
+            ctx.font = '24px serif';
+            ctx.fillStyle = '#8b7cf8';
+            ctx.fillText('Passage 1: The Way that can be spoken', 270, 140);
+            
+            // Image placeholder
+            const gradient = ctx.createLinearGradient(40, 160, 500, 320);
+            gradient.addColorStop(0, '#2d4059');
+            gradient.addColorStop(1, '#415a77');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(40, 160, 460, 160);
+            
+            // Text lines (simulated)
+            ctx.font = 'italic 18px serif';
+            ctx.fillStyle = '#b8b8d1';
+            ctx.textAlign = 'left';
+            const text = 'The Way that can be spoken is not the eternal Way.';
+            ctx.fillText(text, 40, 360);
+            
+            // Daily application box
+            ctx.fillStyle = 'rgba(79, 209, 199, 0.1)';
+            ctx.fillRect(40, 400, 460, 120);
+            ctx.strokeStyle = '#4fd1c7';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(40, 400, 3, 120);
+            
+            ctx.font = 'bold 20px serif';
+            ctx.fillStyle = '#4fd1c7';
+            ctx.fillText('Daily Application', 50, 430);
+            
+            // Navigation
+            ctx.fillStyle = 'rgba(25, 25, 40, 0.98)';
+            ctx.fillRect(0, 860, 540, 100);
+            
+            // Nav buttons
+            ctx.fillStyle = 'rgba(139, 124, 248, 0.2)';
+            ctx.fillRect(40, 890, 80, 50);
+            ctx.fillRect(420, 890, 80, 50);
+            
+            ctx.font = '24px sans-serif';
+            ctx.fillStyle = '#e8e8f0';
+            ctx.textAlign = 'center';
+            ctx.fillText('←', 80, 925);
+            ctx.fillText('→', 460, 925);
+            
+            ctx.fillStyle = '#d4af37';
+            ctx.fillText('1 / 81', 270, 925);
+            
+            container.appendChild(canvas);
+            
+            canvas.addEventListener('click', () => {
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'screenshot1.png';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+            });
+            
+            return container;
+        }
+        
+        // Add screenshot
+        document.body.appendChild(createScreenshot());
+    </script>
+</body>
+</html>

@@ -2,11 +2,14 @@
   "name": "Tao Te Ching - Daily Reflection",
   "short_name": "Tao Daily",
   "description": "Daily Tao Te Ching passages with practical applications for modern life",
-  "start_url": "./",
+  "start_url": "./spiritual_tao_app.html?source=pwa",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#1a1a2e",
   "background_color": "#1a1a2e",
+  "categories": ["books", "education", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr",
   "scope": "./",
   "icons": [
     {
@@ -56,6 +59,32 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Today's Passage",
+      "short_name": "Today",
+      "description": "Open today's daily passage",
+      "url": "./spiritual_tao_app.html?action=today",
+      "icons": [
+        {
+          "src": "icon-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Random Passage",
+      "short_name": "Random",
+      "description": "Open a random passage",
+      "url": "./spiritual_tao_app.html?action=random",
+      "icons": [
+        {
+          "src": "icon-96.png",
+          "sizes": "96x96"
+        }
+      ]
     }
   ],
   "prefer_related_applications": false

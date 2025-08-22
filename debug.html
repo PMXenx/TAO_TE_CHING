@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug PWA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { 
+            font-family: monospace; 
+            padding: 20px;
+            background: #1a1a2e;
+            color: #e8e8f0;
+        }
+        .success { color: #4fd1c7; }
+        .error { color: #ff6b6b; }
+        .info { color: #d4af37; }
+        pre { 
+            background: rgba(0,0,0,0.3); 
+            padding: 10px; 
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>PWA Debug Console</h1>
+    <div id="log"></div>
+    
+    <script>
+        const log = document.getElementById('log');
+        
+        function addLog(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(div);
+        }
+        
+        // Override console.error
+        const originalError = console.error;
+        console.error = function(...args) {
+            addLog('ERROR: ' + args.join(' '), 'error');
+            originalError.apply(console, args);
+        };
+        
+        addLog('Loading passages-data.js...', 'info');
+    </script>
+    
+    <script src="passages-data.js"></script>
+    
+    <script>
+        try {
+            addLog(`✓ Passages loaded: ${passages.length} passages`, 'success');
+            
+            // Check structure
+            addLog('Checking passage structure...', 'info');
+            const requiredFields = ['number', 'title', 'text', 'application', 'image', 'imageDesc'];
+            let allValid = true;
+            
+            passages.forEach((p, i) => {
+                requiredFields.forEach(field => {
+                    if (!p[field]) {
+                        addLog(`✗ Passage ${p.number || i+1} missing field: ${field}`, 'error');
+                        allValid = false;
+                    }
+                });
+            });
+            
+            if (allValid) {
+                addLog('✓ All passages have required fields', 'success');
+            }
+            
+            // Show first passage as sample
+            addLog('Sample passage data:', 'info');
+            const sample = document.createElement('pre');
+            sample.textContent = JSON.stringify(passages[0], null, 2);
+            log.appendChild(sample);
+            
+            // Test if passages display
+            addLog('Testing passage display...', 'info');
+            const testDiv = document.createElement('div');
+            testDiv.innerHTML = `
+                <h3>Passage 1: ${passages[0].title}</h3>
+                <p>${passages[0].text.substring(0, 100)}...</p>
+                <p><strong>Image:</strong> ${passages[0].image}</p>
+                <p><strong>Image Desc:</strong> ${passages[0].imageDesc}</p>
+            `;
+            log.appendChild(testDiv);
+            
+        } catch (e) {
+            addLog(`✗ Error loading passages: ${e.message}`, 'error');
+            addLog(`Stack trace: ${e.stack}`, 'error');
+        }
+        
+        // Test service worker
+        if ('serviceWorker' in navigator) {
+            addLog('✓ Service Worker supported', 'success');
+            navigator.serviceWorker.getRegistration().then(reg => {
+                if (reg) {
+                    addLog(`✓ Service Worker registered: ${reg.scope}`, 'success');
+                } else {
+                    addLog('Service Worker not registered yet', 'info');
+                }
+            });
+        } else {
+            addLog('✗ Service Worker not supported', 'error');
+        }
+    </script>
+</body>
+</html>

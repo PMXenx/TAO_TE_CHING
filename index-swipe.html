@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Tao Te Ching - Daily Reflection</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tao Daily">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Daily Tao Te Ching passages with practical applications for modern life">
+    
+    <!-- PWA Links -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Optimized Mobile-First CSS */
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-card: rgba(25, 25, 40, 0.98);
+            --text-primary: #e8e8f0;
+            --text-secondary: #b8b8d1;
+            --accent-gold: #d4af37;
+            --accent-purple: #8b7cf8;
+            --accent-teal: #4fd1c7;
+            --border-mystical: rgba(212, 175, 55, 0.2);
+            --safe-area-inset-top: env(safe-area-inset-top);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Crimson Text', Georgia, serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            padding-top: var(--safe-area-inset-top);
+        }
+
+        /* Simplified container for mobile */
+        .container {
+            height: 100vh;
+            height: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Compact header */
+        .header {
+            background: var(--bg-card);
+            padding: 12px 16px 10px;
+            border-bottom: 1px solid var(--border-mystical);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* Main content area with swipe support */
+        .swipe-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+
+        .passages-wrapper {
+            display: flex;
+            height: 100%;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .passage {
+            width: 100%;
+            flex-shrink: 0;
+            padding: 16px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .passage h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-purple);
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-mystical);
+        }
+
+        /* Optimized image container */
+        .passage-image {
+            width: 100%;
+            height: 160px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #2d4059, #415a77);
+        }
+
+        .passage-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .passage-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .daily-application {
+            background: rgba(79, 209, 199, 0.08);
+            border-left: 3px solid var(--accent-teal);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: auto;
+        }
+
+        .daily-application h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-teal);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .daily-application p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Touch-optimized navigation */
+        .navigation {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-mystical);
+            padding: 12px 16px;
+            padding-bottom: calc(12px + var(--safe-area-inset-bottom));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-button {
+            background: rgba(139, 124, 248, 0.15);
+            border: 1px solid var(--accent-purple);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 24px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            min-width: 48px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s;
+            cursor: pointer;
+        }
+
+        .nav-button:active {
+            transform: scale(0.95);
+            background: rgba(139, 124, 248, 0.25);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+        }
+
+        .passage-counter {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Swipe indicators */
+        .swipe-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(139, 124, 248, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .swipe-indicator.left {
+            left: 10px;
+        }
+
+        .swipe-indicator.right {
+            right: 10px;
+        }
+
+        .swipe-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Install prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: calc(80px + var(--safe-area-inset-bottom));
+            left: 16px;
+            right: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 16px;
+            transform: translateY(200%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+
+        .install-prompt.show {
+            transform: translateY(0);
+        }
+
+        .install-prompt h3 {
+            color: var(--accent-gold);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .install-prompt p {
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .install-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .install-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .install-btn.primary {
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+        }
+
+        .install-btn.secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-mystical);
+        }
+
+        /* Loading state */
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .passage::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+
+        /* Special nav buttons */
+        .nav-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-button.icon-btn {
+            padding: 12px;
+            min-width: 48px;
+        }
+
+        /* Dropdown for passage selection */
+        .passage-dropdown {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-purple);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin: 0 8px;
+            max-width: 150px;
+        }
+        
+        .passage-dropdown:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(139, 124, 248, 0.3);
+        }
+        
+        .passage-dropdown option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        /* Quick access buttons */
+        .quick-access {
+            display: flex;
+            gap: 8px;
+            margin: 0 8px;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .quick-btn {
+            background: rgba(79, 209, 199, 0.15);
+            border: 1px solid var(--accent-teal);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .quick-btn:active {
+            transform: scale(0.95);
+            background: rgba(79, 209, 199, 0.25);
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+        
+        /* Landscape adjustments */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .header {
+                padding: 8px 16px 6px;
+            }
+            
+            .header h1 {
+                font-size: 1rem;
+            }
+            
+            .passage-image {
+                height: 120px;
+            }
+            
+            .navigation {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>TAO TE CHING</h1>
+        </header>
+
+        <div class="swipe-container" id="swipeContainer">
+            <div class="swipe-indicator left">←</div>
+            <div class="swipe-indicator right">→</div>
+            <div class="passages-wrapper" id="passagesWrapper">
+                <!-- Passages will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <nav class="navigation">
+            <button class="nav-button icon-btn" id="prevBtn" aria-label="Previous">←</button>
+            <div class="quick-access">
+                <button class="quick-btn" id="todayBtn">Today</button>
+                <select class="passage-dropdown" id="passageDropdown" aria-label="Select passage">
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+                <button class="quick-btn" id="randomBtn">Random</button>
+            </div>
+            <button class="nav-button icon-btn" id="nextBtn" aria-label="Next">→</button>
+            <div class="passage-counter" id="passageCounter">1 / 81</div>
+        </nav>
+
+        <!-- Install Prompt -->
+        <div class="install-prompt" id="installPrompt">
+            <h3>Install Tao Daily</h3>
+            <p>Add to your home screen for offline access and daily wisdom</p>
+            <div class="install-buttons">
+                <button class="install-btn primary" id="installBtn">Install</button>
+                <button class="install-btn secondary" id="dismissBtn">Not Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="passages-data.js"></script>
+    <script>
+        // Passages loaded from passages-data.js
+        /* Example structure:
+        const passages = [
+            {
+                number: 1,
+                title: "The Way that can be spoken",
+                text: "The Way that can be spoken is not the eternal Way. The name that can be named is not the eternal name. The nameless is the beginning of heaven and earth. The named is the mother of ten thousand things.",
+                application: "Today, embrace the mystery of life without needing to label everything. Practice sitting quietly for five minutes, observing thoughts without naming them.",
+                image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=300&q=70"
+            },
+            {
+                number: 2,
+                title: "When people see some things as beautiful",
+                text: "When people see some things as beautiful, other things become ugly. Being and non-being create each other. Difficult and easy support each other.",
+                application: "Notice how you create opposites in your mind today. When you judge something as 'bad,' pause and consider how this judgment creates suffering.",
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=70"
+            },
+            {
+                number: 3,
+                title: "Not exalting the gifted",
+                text: "Not exalting the gifted prevents quarreling. Not collecting treasures prevents stealing. The wise therefore rule by emptying hearts and filling bellies.",
+                application: "Simplify one area of your life today. Clean out a drawer, delete unnecessary apps, or unsubscribe from emails that create desire.",
+                image: "https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=300&q=70"
+            },
+            {
+                number: 4,
+                title: "The Way is empty",
+                text: "The Way is empty but inexhaustible, bottomless, the ancestor of all things. It blunts sharpness, unties knots, softens glare.",
+                application: "Create space in your day for emptiness. Between tasks, pause for thirty seconds of nothing. Notice how emptiness refreshes.",
+                image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=300&q=70"
+            },
+            {
+                number: 5,
+                title: "Heaven and earth are impartial",
+                text: "Heaven and earth are impartial; they see all things as straw dogs. The space between heaven and earth is like a bellows.",
+                application: "Practice impartiality today by treating everyone with equal kindness. Notice your tendency to favor some and dismiss others.",
+                image: "https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=300&q=70"
+            },
+            {
+                number: 6,
+                title: "The valley spirit never dies",
+                text: "The valley spirit never dies; it is the woman, primal mother. Her gateway is the root of heaven and earth.",
+                application: "Connect with receptivity today. Listen more than you speak. Accept help when offered. Notice how receiving can be powerful.",
+                image: "https://images.unsplash.com/photo-1511497584788-876760111969?w=300&q=70"
+            },
+            {
+                number: 7,
+                title: "Heaven and earth endure",
+                text: "Heaven and earth endure forever. They are unborn, so ever living. The sage stays behind, thus he is ahead.",
+                application: "Practice putting others first in small ways today. Hold the door, let someone go ahead in line. Notice how this fulfills you.",
+                image: "https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=300&q=70"
+            },
+            {
+                number: 8,
+                title: "The highest good is like water",
+                text: "The highest good is like water. Water gives life to all things and does not compete. It flows in places people reject.",
+                application: "Be like water today. When you encounter resistance, flow around it rather than pushing through. Adapt to circumstances.",
+                image: "https://images.unsplash.com/photo-1455577380025-4321f1e1dca7?w=300&q=70"
+            },
+            {
+                number: 9,
+                title: "Better to stop short",
+                text: "Better to stop short than fill to the brim. Oversharpen the blade, and the edge will soon blunt. Retire when the work is done.",
+                application: "Practice moderation today. Stop eating before completely full. End conversations while still enjoyable.",
+                image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&q=70"
+            },
+            {
+                number: 10,
+                title: "Can you coax your mind",
+                text: "Can you coax your mind from wandering and keep to the original oneness? Can you let your body become supple as a newborn child's?",
+                application: "Return to simplicity today. Approach one task with beginner's curiosity. Let go of control and see what unfolds.",
+                image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300&q=70"
+            },
+            // Adding remaining passages with same structure...
+            // (I'll include just key ones for brevity, but all 81 would be included)
+            {
+                number: 81,
+                title: "True words aren't eloquent",
+                text: "True words aren't eloquent; eloquent words aren't true. The Master has no possessions. The more she gives, the wealthier she is.",
+                application: "Speak simply and truly today. Give without counting cost. End where you began - with simple truth and generous action.",
+                image: "https://images.unsplash.com/photo-1510797215324-95aa89f43c33?w=300&q=70"
+            }
+        ];
+        */
+
+        // All 81 passages are loaded from passages-data.js
+
+        // App state
+        let currentPassage = 1;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isSwiping = false;
+        let deferredPrompt = null;
+
+        // Initialize app
+        function init() {
+            loadPassages();
+            setupDropdown();
+            setupEventListeners();
+            restoreState();
+            registerServiceWorker();
+            setupInstallPrompt();
+            
+            // Check if running as installed PWA
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('Running as installed PWA');
+            }
+        }
+
+        // Load passages into DOM
+        function loadPassages() {
+            const wrapper = document.getElementById('passagesWrapper');
+            wrapper.innerHTML = passages.map(p => `
+                <div class="passage" data-passage="${p.number}">
+                    <h2>Passage ${p.number}: ${p.title}</h2>
+                    <div class="passage-image">
+                        <img src="${p.image}" alt="Passage ${p.number}" loading="lazy">
+                    </div>
+                    <p class="passage-text">${p.text}</p>
+                    <div class="daily-application">
+                        <h3>Daily Application</h3>
+                        <p>${p.application}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show specific passage
+        function showPassage(num) {
+            if (num < 1) num = 1;
+            if (num > 81) num = 81;
+            
+            currentPassage = num;
+            const wrapper = document.getElementById('passagesWrapper');
+            const offset = -(num - 1) * 100;
+            wrapper.style.transform = `translateX(${offset}%)`;
+            
+            // Update UI
+            document.getElementById('passageCounter').textContent = `${num} / 81`;
+            document.getElementById('prevBtn').disabled = num === 1;
+            document.getElementById('nextBtn').disabled = num === 81;
+            
+            // Update dropdown
+            const dropdown = document.getElementById('passageDropdown');
+            if (dropdown) dropdown.value = num;
+            
+            // Save state
+            localStorage.setItem('lastPassage', num);
+            
+            // Update URL without reload
+            history.replaceState({passage: num}, '', `#passage-${num}`);
+            
+            // Haptic feedback if available
+            if ('vibrate' in navigator) {
+                navigator.vibrate(10);
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Button navigation
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                showPassage(currentPassage - 1);
+            });
+            
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                showPassage(currentPassage + 1);
+            });
+            
+            document.getElementById('todayBtn').addEventListener('click', () => {
+                const today = new Date();
+                const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+                showPassage((dayOfYear % 81) + 1);
+            });
+            
+            document.getElementById('randomBtn').addEventListener('click', () => {
+                showPassage(Math.floor(Math.random() * 81) + 1);
+            });
+            
+            // Dropdown navigation
+            document.getElementById('passageDropdown').addEventListener('change', (e) => {
+                showPassage(parseInt(e.target.value));
+            });
+            
+            // Touch/swipe handling
+            const container = document.getElementById('swipeContainer');
+            
+            container.addEventListener('touchstart', handleTouchStart, {passive: true});
+            container.addEventListener('touchmove', handleTouchMove, {passive: true});
+            container.addEventListener('touchend', handleTouchEnd);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentPassage > 1) {
+                    showPassage(currentPassage - 1);
+                } else if (e.key === 'ArrowRight' && currentPassage < 81) {
+                    showPassage(currentPassage + 1);
+                }
+            });
+        }
+
+        // Touch handlers for swipe
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+            isSwiping = true;
+        }
+
+        function handleTouchMove(e) {
+            if (!isSwiping) return;
+            
+            touchEndX = e.touches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            
+            // Show swipe indicators
+            if (Math.abs(diff) > 30) {
+                if (diff > 0 && currentPassage < 81) {
+                    document.querySelector('.swipe-indicator.right').classList.add('visible');
+                } else if (diff < 0 && currentPassage > 1) {
+                    document.querySelector('.swipe-indicator.left').classList.add('visible');
+                }
+            }
+        }
+
+        function handleTouchEnd(e) {
+            if (!isSwiping) return;
+            
+            const diff = touchStartX - touchEndX;
+            const threshold = 50; // Minimum swipe distance
+            
+            // Hide indicators
+            document.querySelectorAll('.swipe-indicator').forEach(ind => {
+                ind.classList.remove('visible');
+            });
+            
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0 && currentPassage < 81) {
+                    // Swipe left - next passage
+                    showPassage(currentPassage + 1);
+                } else if (diff < 0 && currentPassage > 1) {
+                    // Swipe right - previous passage
+                    showPassage(currentPassage - 1);
+                }
+            }
+            
+            isSwiping = false;
+        }
+
+        // Restore last viewed passage
+        function restoreState() {
+            // Check URL hash first
+            const hash = window.location.hash;
+            if (hash) {
+                const match = hash.match(/passage-(\d+)/);
+                if (match) {
+                    showPassage(parseInt(match[1]));
+                    return;
+                }
+            }
+            
+            // Otherwise check localStorage
+            const saved = localStorage.getItem('lastPassage');
+            if (saved) {
+                showPassage(parseInt(saved));
+            } else {
+                showPassage(1);
+            }
+        }
+
+        // Register service worker
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.register('service-worker.js');
+                    console.log('ServiceWorker registered:', registration);
+                } catch (error) {
+                    console.log('ServiceWorker registration failed:', error);
+                }
+            }
+        }
+
+        // Setup install prompt
+        function setupInstallPrompt() {
+            // Capture install prompt event
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // Show install prompt after 30 seconds or 3 passages viewed
+                setTimeout(() => {
+                    if (deferredPrompt && !localStorage.getItem('installDismissed')) {
+                        showInstallPrompt();
+                    }
+                }, 30000);
+            });
+            
+            // Install button
+            document.getElementById('installBtn').addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log('Install prompt outcome:', outcome);
+                    deferredPrompt = null;
+                    hideInstallPrompt();
+                }
+            });
+            
+            // Dismiss button
+            document.getElementById('dismissBtn').addEventListener('click', () => {
+                localStorage.setItem('installDismissed', 'true');
+                hideInstallPrompt();
+            });
+        }
+
+        function showInstallPrompt() {
+            document.getElementById('installPrompt').classList.add('show');
+        }
+
+        function hideInstallPrompt() {
+            document.getElementById('installPrompt').classList.remove('show');
+        }
+
+        // Setup dropdown with all passages
+        function setupDropdown() {
+            const dropdown = document.getElementById('passageDropdown');
+            dropdown.innerHTML = passages.map(p => 
+                `<option value="${p.number}">${p.number}. ${p.title.substring(0, 20)}...</option>`
+            ).join('');
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

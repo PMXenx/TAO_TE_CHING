@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto-Generate Icons</title>
+</head>
+<body>
+    <h1>Auto-generating icons...</h1>
+    <div id="status"></div>
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const status = document.getElementById('status');
+        
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(1, '#2d2d4e');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Circle
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size*0.4, 0, Math.PI*2);
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = size*0.03;
+            ctx.stroke();
+            
+            // Tao symbol
+            ctx.font = `${size*0.5}px serif`;
+            ctx.fillStyle = '#d4af37';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('道', size/2, size/2);
+            
+            // Convert to blob and save
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}.png`;
+                a.click();
+                status.innerHTML += `<p>Generated icon-${size}.png</p>`;
+            });
+        }
+        
+        // Generate all icons
+        sizes.forEach((size, i) => {
+            setTimeout(() => createIcon(size), i * 200);
+        });
+        
+        setTimeout(() => {
+            status.innerHTML += '<h2>All icons generated! Close this tab.</h2>';
+        }, sizes.length * 200 + 500);
+    </script>
+</body>
+</html>
