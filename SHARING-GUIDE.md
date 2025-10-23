@@ -27,8 +27,8 @@ Hey! I found this beautiful Tao Te Ching app with daily wisdom:
 https://pmxenx.github.io/tao-te-ching-app/index.html
 
 To install:
-📱 Android: Open in Chrome, tap "Install"
-🍎 iPhone: Open in Safari, tap Share → "Add to Home Screen"
+📱 Android: Open in Chrome, tap "Install" when prompted (automatic)
+🍎 iPhone: Open in Safari, tap Share → "Add to Home Screen" (manual - Safari only)
 
 Works offline after installation!
 ```
@@ -105,18 +105,21 @@ Best,
 
 INSTALLATION INSTRUCTIONS:
 
-For Android:
+For Android (Automatic):
 1. Open the link above in Chrome
-2. Tap "Install" when prompted (or Menu → "Add to Home screen")
-3. The app appears on your home screen
-4. Enjoy daily wisdom!
+2. Wait for automatic "Install" prompt at bottom of screen
+3. Tap "Install" (or use Menu → "Add to Home screen" if no prompt)
+4. The app appears on your home screen
+5. Enjoy daily wisdom!
 
-For iPhone/iPad:
-1. Open the link above in Safari
-2. Tap the Share button (box with arrow)
-3. Scroll and tap "Add to Home Screen"
-4. Tap "Add"
+For iPhone/iPad (Manual - Safari Required):
+1. Open the link above in Safari (must be Safari, not Chrome)
+2. Tap the Share button (box with arrow at bottom)
+3. Scroll down and tap "Add to Home Screen"
+4. Tap "Add" in the top right
 5. Find the app icon on your home screen!
+
+Note: iOS doesn't show automatic install prompts like Android.
 ```
 
 ---
@@ -152,14 +155,17 @@ For iPhone/iPad:
 
 ### For iPhone/iPad Users
 
+**⚠️ IMPORTANT: Safari browser required - No automatic install prompt**
+
 **Step-by-step instructions to send:**
 
-1. **Open the app link** in Safari browser on your iPhone or iPad:
+1. **Open the app link** in **Safari** browser on your iPhone or iPad (NOT Chrome):
    ```
    https://pmxenx.github.io/tao-te-ching-app/index.html
    ```
 
 2. **Wait for the app to load** - You'll see the beautiful Tao Te Ching interface
+   - **Note:** There will be NO automatic install prompt on iOS
 
 3. **Tap the Share button** - It's the icon at the bottom that looks like a box with an arrow pointing up
 
@@ -174,6 +180,8 @@ For iPhone/iPad:
 8. **Go to your home screen** - You'll see the new app icon
 
 9. **Tap to open** - Enjoy your daily wisdom!
+
+**Why Safari only?** Apple restricts PWA installation to Safari on iOS. Chrome and other browsers on iOS cannot install web apps to the home screen.
 
 ### For Desktop Users
 
@@ -226,13 +234,16 @@ For iPhone/iPad:
 
 **Android:**
 - Make sure you're using **Chrome** (not Firefox, Samsung Internet, etc.)
-- Try: Menu (⋮) → "Add to Home screen"
+- Wait for automatic install banner at bottom of screen (may take a few seconds)
+- If no banner appears, try: Menu (⋮) → "Add to Home screen"
 - Make sure you have the latest Chrome version
 
 **iPhone:**
-- Make sure you're using **Safari** (not Chrome)
-- The Share button is at the bottom (or top on iPad)
-- Scroll in the share menu to find "Add to Home Screen"
+- **There is NO install button or automatic prompt on iOS** - this is normal
+- You must use **Safari** browser (Chrome on iOS cannot install PWAs)
+- Look for the **Share button** (box with arrow) at the bottom of Safari
+- Tap Share → Scroll down → Tap "Add to Home Screen"
+- This is the ONLY way to install on iOS - it's manual by design
 
 ### "The app won't work offline"
 

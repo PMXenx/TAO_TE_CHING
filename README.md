@@ -23,7 +23,9 @@ A beautiful Progressive Web App (PWA) for daily Tao Te Ching wisdom and reflecti
 
 ## Quick Installation
 
-### For Android
+### For Android (Automatic Install Prompt)
+
+**✅ Chrome shows an automatic install banner**
 
 1. **Open the app URL** in Chrome on your Android phone:
    ```
@@ -31,25 +33,35 @@ A beautiful Progressive Web App (PWA) for daily Tao Te Ching wisdom and reflecti
    ```
 
 2. **Wait for the install prompt** to appear at the bottom of the screen
+   - Chrome will automatically show "Add Tao Daily to Home screen"
 
 3. **Tap "Install"** or "Add to Home screen"
 
 4. **Open the app** from your home screen - it works offline!
 
-### For iPhone/iPad
+**Alternative method if prompt doesn't appear:**
+- Tap the menu (⋮) → "Install app" or "Add to Home screen"
+
+### For iPhone/iPad (Manual Installation Only)
+
+**⚠️ No automatic prompt - manual installation required**
+
+**IMPORTANT:** You must use **Safari** (not Chrome) for installation to work.
 
 1. **Open the app URL** in Safari on your iOS device:
    ```
    https://pmxenx.github.io/tao-te-ching-app/index.html
    ```
 
-2. **Tap the Share button** (box with arrow pointing up)
+2. **Tap the Share button** (box with arrow pointing up at the bottom of the screen)
 
-3. **Scroll and tap "Add to Home Screen"**
+3. **Scroll down** in the share menu and tap **"Add to Home Screen"**
 
-4. **Tap "Add"** in the top right
+4. **Tap "Add"** in the top right corner
 
-5. **Open the app** from your home screen!
+5. **Find the app icon** on your home screen and tap to open!
+
+**Note:** iOS doesn't support automatic install prompts like Android. Users must manually add via the Share button.
 
 ## How to Use
 
@@ -79,8 +91,9 @@ Want to share this app with friends and family? See the [SHARING-GUIDE.md](SHARI
 Check out this beautiful Tao Te Ching app:
 https://pmxenx.github.io/tao-te-ching-app/index.html
 
-On Android: Open in Chrome, tap "Install"
-On iPhone: Open in Safari, tap Share → "Add to Home Screen"
+📱 Android: Open in Chrome, tap "Install" when prompted
+🍎 iPhone: Open in Safari, tap Share → "Add to Home Screen"
+   (Note: Safari only - no automatic prompt on iOS)
 ```
 
 ## Troubleshooting
@@ -90,6 +103,14 @@ On iPhone: Open in Safari, tap Share → "Add to Home Screen"
 - Make sure you're using **Chrome browser** (not Firefox, Samsung Internet, etc.)
 - Try the manual method: Menu (⋮) → "Add to Home screen"
 - Clear Chrome cache: Settings → Apps → Chrome → Storage → Clear Cache
+
+### App won't install on iPhone/iPad
+
+- Make sure you're using **Safari** (not Chrome - Chrome on iOS doesn't support PWA installation)
+- There is **no automatic install prompt** on iOS - you must use Share button
+- Tap Share button (box with arrow) → Scroll → "Add to Home Screen"
+- Make sure you're running iOS 11.3 or later for offline support
+- Clear Safari cache: Settings → Safari → Clear History and Website Data
 
 ### Images won't load
 
@@ -125,11 +146,21 @@ On iPhone: Open in Safari, tap Share → "Add to Home Screen"
 
 ### Browser Compatibility
 
-- ✅ Chrome (Android & Desktop) - Fully supported
-- ✅ Edge (Desktop) - Fully supported
-- ✅ Safari (iOS) - Fully supported (with Add to Home Screen)
-- ⚠️ Firefox (Android) - Works but limited PWA support
+**Android:**
+- ✅ Chrome (Android) - **Best experience** - Automatic install prompt, full PWA support
+- ✅ Edge (Android) - Fully supported with install prompt
+- ⚠️ Firefox (Android) - Works but limited PWA support, no install prompt
 - ⚠️ Samsung Internet - Works but may have installation issues
+
+**iOS:**
+- ✅ Safari (iOS 11.3+) - **Required for installation** - Manual only via Share button
+- ❌ Chrome (iOS) - Cannot install as PWA (iOS limitation)
+- ❌ Firefox (iOS) - Cannot install as PWA (iOS limitation)
+
+**Desktop:**
+- ✅ Chrome (Desktop) - Fully supported with install option
+- ✅ Edge (Desktop) - Fully supported with install option
+- ⚠️ Firefox (Desktop) - Works but limited PWA support
 
 ### Key Files
 
