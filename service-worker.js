@@ -1,14 +1,21 @@
 // Service Worker for Tao Daily PWA
-const CACHE_NAME = 'tao-daily-v1';
-const RUNTIME_CACHE = 'tao-runtime-v1';
+const CACHE_NAME = 'tao-daily-v2';
+const RUNTIME_CACHE = 'tao-runtime-v2';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
   './',
-  './spiritual_tao_app.html',
+  './index.html',
+  './passages-data.js',
   './manifest.json',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './icon-72.png',
+  './icon-96.png',
+  './icon-128.png',
+  './icon-144.png',
+  './icon-152.png',
+  './icon-384.png'
 ];
 
 // Font URLs to cache
@@ -82,11 +89,18 @@ self.addEventListener('fetch', event => {
   // Handle navigation requests (HTML)
   if (request.mode === 'navigate') {
     event.respondWith(
-      caches.match('./spiritual_tao_app.html')
-        .then(response => response || fetch(request))
+      fetch(request)
+        .then(response => {
+          // Cache the response
+          const responseClone = response.clone();
+          caches.open(RUNTIME_CACHE).then(cache => {
+            cache.put(request, responseClone);
+          });
+          return response;
+        })
         .catch(() => {
           // Return offline page if available
-          return caches.match('./spiritual_tao_app.html');
+          return caches.match('./index.html');
         })
     );
     return;
