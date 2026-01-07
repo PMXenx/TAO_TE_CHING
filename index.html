@@ -551,8 +551,8 @@
             });
             
             // Determine initial passage
-            let initialPassage = 1;
-            
+            let initialPassage = getTodayPassage(); // Default to today's passage
+
             // Check URL hash first
             if (window.location.hash) {
                 const match = window.location.hash.match(/passage-(\d+)/);
@@ -562,7 +562,7 @@
                         initialPassage = num;
                     }
                 }
-            } 
+            }
             // Check URL params for action
             else if (window.location.search) {
                 const params = new URLSearchParams(window.location.search);
@@ -572,15 +572,20 @@
                     initialPassage = Math.floor(Math.random() * passages.length) + 1;
                 }
             }
-            // Otherwise check localStorage
+            // Check localStorage, but only if it's from today
             else {
-                const saved = localStorage.getItem('lastViewedPassage');
-                if (saved) {
-                    const num = parseInt(saved);
+                const savedData = localStorage.getItem('lastViewedPassage');
+                const savedDate = localStorage.getItem('lastViewedDate');
+                const today = new Date().toDateString();
+
+                // If we have saved data from today, use it (user is continuing their session)
+                if (savedData && savedDate === today) {
+                    const num = parseInt(savedData);
                     if (num >= 1 && num <= passages.length) {
                         initialPassage = num;
                     }
                 }
+                // Otherwise, stick with today's passage (new day = fresh start)
             }
             
             // Show initial passage
@@ -599,13 +604,14 @@
             document.getElementById(`passage-${num}`).classList.add('active');
             document.getElementById('passageCounter').textContent = `${num} / ${passages.length}`;
             updateNavigation();
-            
+
             // Update URL hash
             window.location.hash = `passage-${num}`;
-            
-            // Save to localStorage
+
+            // Save to localStorage with today's date
             localStorage.setItem('lastViewedPassage', num);
-            
+            localStorage.setItem('lastViewedDate', new Date().toDateString());
+
             // Update dropdown if it exists
             const dropdown = document.getElementById('passageDropdown');
             if (dropdown) dropdown.value = num;
