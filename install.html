@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install Tao Te Ching App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            color: #333;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step {
+            margin: 15px 0;
+            padding-left: 10px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+
+        .step-text {
+            display: inline;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #856404;
+        }
+
+        .icon {
+            font-size: 24px;
+        }
+
+        .alert {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .features {
+            margin: 25px 0;
+        }
+
+        .feature-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkmark {
+            color: #28a745;
+            font-size: 20px;
+        }
+
+        #ios-instructions, #android-instructions {
+            display: none;
+        }
+
+        .video-link {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .video-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="icon-192.png" alt="Tao Daily Icon" class="app-icon">
+        <h1>Tao Te Ching</h1>
+        <p class="subtitle">Daily Wisdom & Reflection</p>
+
+        <a href="index.html" class="button">
+            📱 Open App
+        </a>
+
+        <!-- iOS Instructions -->
+        <div id="ios-instructions">
+            <div class="alert">
+                <strong>⚠️ Important for iPhone Users:</strong>
+                You must use <span class="highlight">Safari browser</span> to install this app. Chrome and other browsers won't work on iOS.
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📋</span>
+                    Installation Steps (1 minute)
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Open <span class="highlight">Safari</span> (blue compass icon)</span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Visit the app link (tap "Open App" button above)</span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Tap the <span class="highlight">Share button 📤</span> at the bottom of Safari</span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Scroll down and tap <span class="highlight">"Add to Home Screen"</span></span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <span class="step-text">Tap <span class="highlight">"Add"</span> in the top right</span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <span class="step-text">Find "Tao Daily" on your home screen and tap to open!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Android Instructions -->
+        <div id="android-instructions">
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🤖</span>
+                    Installation Steps (30 seconds)
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Open <span class="highlight">Chrome browser</span></span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Tap the "Open App" button above</span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Wait for automatic <span class="highlight">"Install" prompt</span> to appear</span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Tap <span class="highlight">"Install"</span> twice to confirm</span>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <span class="step-text">Open from your home screen - Done! ✅</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="section-title">
+                <span class="icon">✨</span>
+                What You'll Get
+            </div>
+            <div class="feature-item">
+                <span class="checkmark">✓</span>
+                <span>All 81 Tao Te Ching passages</span>
+            </div>
+            <div class="feature-item">
+                <span class="checkmark">✓</span>
+                <span>Automatic daily passage</span>
+            </div>
+            <div class="feature-item">
+                <span class="checkmark">✓</span>
+                <span>Random wisdom generator</span>
+            </div>
+            <div class="feature-item">
+                <span class="checkmark">✓</span>
+                <span>Beautiful photography</span>
+            </div>
+            <div class="feature-item">
+                <span class="checkmark">✓</span>
+                <span>Works completely offline</span>
+            </div>
+            <div class="feature-item">
+                <span class="checkmark">✓</span>
+                <span>Free forever, no ads</span>
+            </div>
+        </div>
+
+        <div class="video-link">
+            <a href="#">
+                <span>🎥</span>
+                <span>Watch Video Tutorial</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>Ancient wisdom for modern life 🌊</p>
+            <p style="margin-top: 10px; font-size: 12px;">
+                Free • Private • No Tracking
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Detect device and show appropriate instructions
+        function detectDevice() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isIOS = /iphone|ipad|ipod/.test(userAgent);
+            const isAndroid = /android/.test(userAgent);
+
+            if (isIOS) {
+                document.getElementById('ios-instructions').style.display = 'block';
+            } else if (isAndroid) {
+                document.getElementById('android-instructions').style.display = 'block';
+            } else {
+                // Default to showing both or desktop message
+                document.getElementById('android-instructions').style.display = 'block';
+            }
+        }
+
+        // Run on page load
+        detectDevice();
+
+        // Check if running in standalone mode (already installed)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            // User has already installed the app, redirect to main app
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
