@@ -124,6 +124,7 @@
             margin-bottom: 10px;
             border: 1px solid var(--border-mystical);
             box-shadow: var(--glow-soft);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             flex: 1;
             display: flex;
@@ -314,7 +315,8 @@
         }
         
         .passage-dropdown:focus {
-            outline: none;
+            outline: 2px solid var(--accent-gold);
+            outline-offset: 2px;
             box-shadow: 0 0 30px rgba(139, 124, 248, 0.2);
         }
         
@@ -599,6 +601,7 @@
         }
 
         function showPassage(num) {
+            if (num < 1 || num > passages.length) return;
             currentPassage = num;
             document.querySelectorAll('.passage').forEach(p => p.classList.remove('active'));
             document.getElementById(`passage-${num}`).classList.add('active');

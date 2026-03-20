@@ -1,6 +1,6 @@
 // Service Worker for Tao Daily PWA
-const CACHE_NAME = 'tao-daily-v3';
-const RUNTIME_CACHE = 'tao-runtime-v3';
+const CACHE_NAME = 'tao-daily-v4';
+const RUNTIME_CACHE = 'tao-runtime-v4';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [

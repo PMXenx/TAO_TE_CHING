@@ -2,7 +2,7 @@
 const passages = [
     {
                 number: 1,
-                title: "The Way that can be spoken",
+                title: "The Inexpressible Way",
                 text: "The Way that can be spoken is not the eternal Way. The name that can be named is not the eternal name. The nameless is the beginning of heaven and earth. The named is the mother of ten thousand things. Ever desireless, one can see the mystery. Ever desiring, one can see the manifestations. These two spring from the same source but differ in name; this appears as darkness. Darkness within darkness. The gate to all mystery.",
                 application: "Today, embrace the mystery of life without needing to label or define everything. Allow yourself to experience moments without immediately categorizing them as good or bad. Practice sitting quietly for five minutes, observing your thoughts without naming or judging them.",
                 image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400",
@@ -10,7 +10,7 @@ const passages = [
             },
             {
                 number: 2,
-                title: "When people see some things as beautiful",
+                title: "The Unity of Opposites",
                 text: "When people see some things as beautiful, other things become ugly. When people see some things as good, other things become bad. Being and non-being create each other. Difficult and easy support each other. Long and short define each other. High and low depend on each other. Before and after follow each other. Therefore the Master acts without doing anything and teaches without saying anything.",
                 application: "Notice how you create opposites in your mind today. When you judge something as 'bad,' pause and consider how this judgment creates suffering. Practice accepting one challenging situation today without labeling it, seeing it simply as part of the whole tapestry of experience.",
                 image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
@@ -18,7 +18,7 @@ const passages = [
             },
             {
                 number: 3,
-                title: "Not exalting the gifted",
+                title: "Simplicity and Non-Competition",
                 text: "Not exalting the gifted prevents quarreling. Not collecting treasures prevents stealing. Not seeing desirable things prevents confusion of the heart. The wise therefore rule by emptying hearts and filling bellies, by weakening ambitions and strengthening bones. If people lack knowledge and desire, then intellectuals will not try to interfere. If nothing is done, then all will be well.",
                 application: "Simplify one area of your life today. Clean out a drawer, delete unnecessary apps, or unsubscribe from emails that create desire for things you don't need. Notice how reducing external stimulation brings inner peace.",
                 image: "https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=400",
@@ -50,7 +50,7 @@ const passages = [
             },
             {
                 number: 7,
-                title: "Heaven and earth endure",
+                title: "Eternity Through Selflessness",
                 text: "Heaven and earth endure forever. Why do heaven and earth last forever? They are unborn, so ever living. The sage stays behind, thus he is ahead. He is detached, thus at one with all. Through selfless action, he attains fulfillment.",
                 application: "Practice putting others first in small ways today. Hold the door, let someone go ahead in line, listen without waiting for your turn to speak. Notice how this 'staying behind' paradoxically fulfills you.",
                 image: "https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=400",
@@ -66,7 +66,7 @@ const passages = [
             },
             {
                 number: 9,
-                title: "Better to stop short",
+                title: "Knowing When to Stop",
                 text: "Better to stop short than fill to the brim. Oversharpen the blade, and the edge will soon blunt. Amass a store of gold and jade, and no one can protect it. Claim wealth and titles, and disaster will follow. Retire when the work is done. This is the way of heaven.",
                 application: "Practice moderation today. Stop eating before you're completely full. End a conversation while it's still enjoyable. Complete a task without perfecting every detail. Notice the satisfaction in having 'enough' rather than 'too much.'",
                 image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400",
@@ -74,7 +74,7 @@ const passages = [
             },
             {
                 number: 10,
-                title: "Can you coax your mind",
+                title: "Returning to Innocence",
                 text: "Can you coax your mind from its wandering and keep to the original oneness? Can you let your body become supple as a newborn child's? Can you cleanse your inner vision until you see nothing but the light? Can you love people and lead them without imposing your will? Can you deal with the most vital matters by letting events take their course? Can you step back from your own mind and thus understand all things?",
                 application: "Practice returning to simplicity today. When your mind complicates things, ask 'What would a child do?' Approach one task with the curiosity and openness of a beginner. Let go of the need to control one situation and see what unfolds.",
                 image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400",
@@ -98,7 +98,7 @@ const passages = [
             },
             {
                 number: 13,
-                title: "Accept disgrace willingly",
+                title: "Embracing the Self",
                 text: "Accept disgrace willingly. Accept misfortune as the human condition. What do you mean by 'Accept disgrace willingly'? Accept being unimportant. Do not be concerned with loss or gain. This is called 'accepting disgrace willingly.' What do you mean by 'Accept misfortune as the human condition'? Misfortune comes from having a body. Without a body, how could there be misfortune?",
                 application: "When something goes wrong today, practice accepting it without resistance. Instead of asking 'Why me?', simply acknowledge 'This is part of being human.' Notice how acceptance transforms your experience of difficulty.",
                 image: "https://images.unsplash.com/photo-1528164344705-47542687000d?w=400",
@@ -114,7 +114,7 @@ const passages = [
             },
             {
                 number: 15,
-                title: "The ancient Masters were profound",
+                title: "The Watchful Presence",
                 text: "The ancient Masters were profound and subtle. Their wisdom was unfathomable. Because it was unfathomable, all we can do is describe their appearance: Watchful, like those crossing a winter stream. Alert, like those aware of danger. Courteous, like visiting guests. Yielding, like ice about to melt. Simple, like uncarved blocks of wood.",
                 application: "Move through your day with the careful attention of someone crossing a winter stream. Be alert to the present moment, courteous to all you meet, ready to yield when appropriate. Practice the dignified simplicity of the ancient masters.",
                 image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=400",
@@ -122,7 +122,7 @@ const passages = [
             },
             {
                 number: 16,
-                title: "Empty yourself of everything",
+                title: "The Stillness of Return",
                 text: "Empty yourself of everything. Let the mind rest at peace. The ten thousand things rise and fall while the Self watches their return. They grow and flourish and then return to the source. Returning to the source is stillness, which is the way of nature. The way of nature is unchanging. Knowing constancy is insight.",
                 application: "Take a break today to empty yourself completely. Sit quietly and watch your thoughts and feelings arise and pass away like clouds. Don't engage with them; just observe their coming and going. Return to the stillness beneath all movement.",
                 image: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?w=400",
@@ -138,7 +138,7 @@ const passages = [
             },
             {
                 number: 18,
-                title: "When the great Way is forgotten",
+                title: "When Harmony is Lost",
                 text: "When the great Way is forgotten, kindness and morality arise. When wisdom and intelligence are born, the great pretense begins. When there is no peace within the family, filial piety and devotion arise. When the country is confused and in chaos, loyal ministers appear.",
                 application: "Notice today how rules and regulations arise when natural harmony is lost. In your interactions, try operating from natural kindness rather than imposed morality. Act from your heart's wisdom rather than from shoulds and oughts.",
                 image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=400",
@@ -146,7 +146,7 @@ const passages = [
             },
             {
                 number: 19,
-                title: "Give up sainthood",
+                title: "Authenticity Over Pretense",
                 text: "Give up sainthood, renounce wisdom, and it will be a hundred times better for everyone. Give up kindness, renounce morality, and people will rediscover filial piety and love. Give up ingenuity, renounce profit, and bandits and thieves will disappear. These three are outward forms alone; they are not sufficient in themselves. It is more important to see the simplicity, to realize one's true nature.",
                 application: "Drop any pretense of being special or wise today. Be genuinely yourself without trying to appear spiritual or good. Notice how this authenticity naturally brings out the best in your interactions with others.",
                 image: "https://images.unsplash.com/photo-1537420327992-d6e192287183?w=400",
@@ -154,7 +154,7 @@ const passages = [
             },
             {
                 number: 20,
-                title: "Give up learning",
+                title: "Beyond Learned Distinctions",
                 text: "Give up learning, and put an end to your troubles. Is there a difference between yes and no? Is there a difference between good and evil? Must I fear what others fear? What nonsense! Other people are contented, enjoying the sacrificial feast of the ox. In spring some go to the park and climb the terrace, but I alone am drifting, not knowing where I am.",
                 application: "Question your assumptions today. What beliefs do you hold simply because others do? Choose one opinion you've always had and explore its opposite. Allow yourself to not know, to drift without a fixed position.",
                 image: "https://images.unsplash.com/photo-1533563541316-ff6dcab36fdc?w=400",
@@ -186,7 +186,7 @@ const passages = [
             },
             {
                 number: 24,
-                title: "Those who stand on tiptoe",
+                title: "The Failure of Striving",
                 text: "Those who stand on tiptoe don't stand firm. Those who rush ahead don't go far. Those who try to shine dim their own light. Those who define themselves can't know who they really are. Those who have power over others can't empower themselves. Those who cling to their work will create nothing that endures.",
                 application: "Stop striving to impress today. Don't stand on tiptoe to appear taller. Move at your natural pace rather than rushing. Let your light shine naturally without trying to be seen. Create from joy rather than from need for recognition.",
                 image: "https://images.unsplash.com/photo-1476611317204-d5fec3af3d2a?w=400",
@@ -218,7 +218,7 @@ const passages = [
             },
             {
                 number: 28,
-                title: "Know the male",
+                title: "Embracing All Polarities",
                 text: "Know the male, yet keep to the female; receive the world in your arms. If you receive the world, the Way will never leave you and you will be like a little child. Know the white, but keep to the black; be a pattern for the world. If you are a pattern for the world, the Way will be strong inside you.",
                 application: "Balance your masculine and feminine energies today. If you tend to be aggressive, practice receptivity. If you're usually passive, practice assertiveness. Hold both potentials within you, choosing which to express moment by moment.",
                 image: "https://images.unsplash.com/photo-1507181179506-598491b53db4?w=400",
@@ -234,7 +234,7 @@ const passages = [
             },
             {
                 number: 30,
-                title: "Whoever relies on the Way",
+                title: "The Way of Non-Force",
                 text: "Whoever relies on the Way in governing people doesn't try to force issues or defeat enemies by force of arms. For every force there is a counterforce. Violence, even well intentioned, always rebounds upon oneself. The Master does her job and then stops. She understands that the universe is forever out of control.",
                 application: "Use minimal force today. When you encounter resistance, step back rather than pushing harder. Complete your tasks without forcing outcomes. Trust that the universe has its own wisdom beyond your control.",
                 image: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=400",
@@ -242,7 +242,7 @@ const passages = [
             },
             {
                 number: 31,
-                title: "Weapons are instruments of fear",
+                title: "The Way of Peace",
                 text: "Weapons are instruments of fear; all creatures hate them. Therefore followers of the Way never use them. The wise prefer the left; the warrior prefers the right. Weapons are instruments of fear; they are not wise tools. The wise use them only when there is no choice.",
                 application: "Examine your verbal weapons today - sarcasm, criticism, judgment. Notice when you arm yourself with words. Practice speaking only from peace. If you must address conflict, do so with the reluctance of one who has no other choice.",
                 image: "https://images.unsplash.com/photo-1542401886-65d6c61db217?w=400",
@@ -250,7 +250,7 @@ const passages = [
             },
             {
                 number: 32,
-                title: "The Way is forever undefined",
+                title: "The Nameless Simplicity",
                 text: "The Way is forever undefined. Small though it is in the unformed state, it cannot be grasped. If leaders could center themselves in it, the whole world would be transformed by itself, in its natural rhythms. People would be content with their simple, everyday lives, in harmony, and free of desires.",
                 application: "Find contentment in simplicity today. Instead of seeking more, appreciate what you already have. Eat a simple meal with full attention. Take pleasure in ordinary activities. Let natural rhythms guide your day.",
                 image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400",
@@ -322,7 +322,7 @@ const passages = [
             },
             {
                 number: 41,
-                title: "When superior people hear of the Way",
+                title: "The Paradox of the Path",
                 text: "When superior people hear of the Way, they immediately practice it. When average people hear of the Way, they half believe it. When foolish people hear of the Way, they laugh out loud. If they didn't laugh, it wouldn't be the Way. The path into the light seems dark, the path forward seems to go back.",
                 application: "Embrace paradox today. When the way forward seems blocked, consider stepping back. When clarity seems distant, rest in not-knowing. Trust paths that seem to contradict conventional wisdom.",
                 image: "https://images.unsplash.com/photo-1507181179506-598491b53db4?w=400",
@@ -330,7 +330,7 @@ const passages = [
             },
             {
                 number: 42,
-                title: "The Way gives birth to One",
+                title: "From Unity to Multiplicity",
                 text: "The Way gives birth to One. One gives birth to Two. Two gives birth to Three. Three gives birth to all things. All things have their backs to the female and stand facing the male. When male and female combine, all things achieve harmony. Ordinary people hate solitude. But the Master makes use of it.",
                 application: "Find value in what others avoid today. Spend time in solitude without distraction. Embrace a task everyone else procrastinates on. Discover the gifts hidden in what appears undesirable.",
                 image: "https://images.unsplash.com/photo-1499336315816-097655dcfbda?w=400",
@@ -362,7 +362,7 @@ const passages = [
             },
             {
                 number: 46,
-                title: "When a country is in harmony",
+                title: "Contentment Over Desire",
                 text: "When a country is in harmony with the Way, the factories make trucks and tractors. When a country goes counter to the Way, warheads are stockpiled outside the cities. There is no greater illusion than fear, no greater wrong than preparing to defend yourself, no greater misfortune than having an enemy.",
                 application: "Transform fear into trust today. Notice where you're stockpiling defenses - emotional walls, harsh words, protective behaviors. Lower one defense and see what happens. Convert weapons into tools.",
                 image: "https://images.unsplash.com/photo-1502224562085-639556652f33?w=400",
@@ -370,7 +370,7 @@ const passages = [
             },
             {
                 number: 47,
-                title: "Without opening your door",
+                title: "The Inner Universe",
                 text: "Without opening your door, you can open your heart to the world. Without looking out your window, you can see the essence of the Way. The more you know, the less you understand. The Master arrives without leaving, sees the light without looking, achieves without doing a thing.",
                 application: "Travel inward today instead of outward. Find the whole universe within yourself. Close your eyes and see more clearly. Stay still and arrive everywhere. Know less and understand more.",
                 image: "https://images.unsplash.com/photo-1559825481-12a05cc00344?w=400",
@@ -386,7 +386,7 @@ const passages = [
             },
             {
                 number: 49,
-                title: "The Master has no mind",
+                title: "The Open Heart",
                 text: "The Master has no mind of her own. She works with the mind of the people. She is good to people who are good. She is also good to people who aren't good. This is true goodness. She trusts people who are trustworthy. She also trusts people who aren't trustworthy. This is true trust.",
                 application: "Expand your goodness today to include those you usually judge. Trust someone who seems untrustworthy. Work with others' perspectives rather than imposing your own. Let your mind be as open as the sky.",
                 image: "https://images.unsplash.com/photo-1524863479829-916d8e77f114?w=400",
@@ -450,7 +450,7 @@ const passages = [
             },
             {
                 number: 57,
-                title: "If you want to be a great leader",
+                title: "Leading by Letting Go",
                 text: "If you want to be a great leader, you must learn to follow the Way. Stop trying to control. Let go of fixed plans and concepts, and the world will govern itself. The more prohibitions you have, the less virtuous people will be. The more weapons you have, the less secure people will be.",
                 application: "Lead by following today. Remove a rule rather than adding one. Trust people's natural virtue instead of trying to enforce it. Create security through openness rather than defense. Let situations govern themselves.",
                 image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400",
@@ -458,7 +458,7 @@ const passages = [
             },
             {
                 number: 58,
-                title: "When the government is too intrusive",
+                title: "Tolerance and Integrity",
                 text: "When the government is too intrusive, people lose their spirit. Act for the people's benefit. Trust them; leave them alone. If a country is governed with tolerance, the people are comfortable and honest. If a country is governed with repression, the people are depressed and crafty.",
                 application: "Govern yourself and others with tolerance today. Loosen your grip on control. Trust more, supervise less. Notice how freedom brings out the best in people while restriction brings out the worst.",
                 image: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=400",
@@ -466,7 +466,7 @@ const passages = [
             },
             {
                 number: 59,
-                title: "In caring for others",
+                title: "The Moderation of Service",
                 text: "In caring for others and serving heaven, there is nothing like moderation. Moderation begins with giving up one's ideas. This depends on virtue gathered in the past. If there is a store of virtue, then nothing is impossible. If nothing is impossible, then there are no limits.",
                 application: "Practice moderation in caring today. Give help without exhausting yourself. Serve without becoming a martyr. Give up fixed ideas about how caring should look. Draw on your stored virtue from past practice.",
                 image: "https://images.unsplash.com/photo-1478476868527-002ae3f3e159?w=400",
@@ -498,7 +498,7 @@ const passages = [
             },
             {
                 number: 63,
-                title: "Act without doing",
+                title: "Greatness Through Smallness",
                 text: "Act without doing; work without effort. Think of the small as large and the few as many. Confront the difficult while it is still easy; accomplish the great task by a series of small acts. The Master never reaches for the great; thus she achieves greatness.",
                 application: "Handle difficulties while they're still small today. Break one large task into tiny steps. Don't reach for greatness; focus on the next small right action. Work without strain, act without forcing.",
                 image: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=400",
@@ -546,7 +546,7 @@ const passages = [
             },
             {
                 number: 69,
-                title: "The generals have a saying",
+                title: "Strategic Restraint",
                 text: "The generals have a saying: 'Rather than make the first move it is better to wait and see. Rather than advance an inch it is better to retreat a yard.' This is called going forward without advancing, pushing back without using weapons. There is no greater misfortune than underestimating your enemy.",
                 application: "Practice strategic non-action today. In conflict, wait rather than attacking first. Retreat to win. Advance by not advancing. Never underestimate the power of stepping back and letting others reveal themselves.",
                 image: "https://images.unsplash.com/photo-1472120435266-53107fd0c44a?w=400",
@@ -586,7 +586,7 @@ const passages = [
             },
             {
                 number: 74,
-                title: "If people do not fear death",
+                title: "The Limits of Punishment",
                 text: "If people do not fear death, then threatening them with death has no power. If people fear death and we make death the penalty for breaking the law, who would dare to break the law? There is always an official executioner. If you try to take his place, it is like trying to be a master carpenter and cutting wood.",
                 application: "Stop trying to be the executioner in others' lives today. Don't threaten or punish to control behavior. Let natural consequences teach their lessons. Focus on your own life rather than judging others.",
                 image: "https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400",
@@ -594,7 +594,7 @@ const passages = [
             },
             {
                 number: 75,
-                title: "When taxes are too high",
+                title: "Freedom from Burden",
                 text: "When taxes are too high, people go hungry. When the government is too intrusive, people lose their spirit. Act for the people's benefit. Trust them; leave them alone. Why is life so hard? Because people take it too seriously. Those who know life's emptiness are truly wise.",
                 application: "Stop taxing yourself and others today. Reduce the demands you place on yourself. Trust life more, control less. Take one thing less seriously. Remember the liberating emptiness at the heart of existence.",
                 image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",
@@ -626,7 +626,7 @@ const passages = [
             },
             {
                 number: 79,
-                title: "After a bitter quarrel",
+                title: "Releasing Resentment",
                 text: "After a bitter quarrel, some resentment remains. What can be done about this? The sage keeps the left-hand portion of the contract and doesn't make demands on others. The person of virtue performs their part of the contract; the person without virtue requires others to fulfill their obligations.",
                 application: "Let go of scorekeeping today. After any conflict, focus on your own part rather than demanding from others. Keep your side of agreements without monitoring others'. Be generous in forgiving old resentments.",
                 image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400",
